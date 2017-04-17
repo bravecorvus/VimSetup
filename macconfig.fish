@@ -25,9 +25,6 @@ export rvmsudo_secure_path=1
 if status --is-interactive
     bash $HOME/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
 end
-alias vi=/usr/local/bin/nvim
 neofetch --config none
-eval $HOME/neovim/nvim/plugged/gruvbox/gruvbox_256palette.sh
-#bass source ~/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish

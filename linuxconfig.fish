@@ -38,6 +38,6 @@ set -x VIMRUNTIME /usr/local/opt/neovim/share/nvim/runtime
 #rvm default
 # Base16 Shell
 neofetch --config none
-#eval $HOME/neovim/nvim/plugged/gruvbox/gruvbox_256palette.sh
-bass source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
+eval $HOME/neovim/nvim/plugged/gruvbox/gruvbox_256palette.sh
+#bass source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
