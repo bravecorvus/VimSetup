@@ -1,2 +1,6 @@
 #!/bin/bash
-rvm install ruby && sudo pip3 install neovim && sudo apt-get install python3-neovim && sudo apt-get install neovim && sudo chsh -s /usr/bin/fish && cd ~/.config && mkdir nvim && cd nvim && ln -s ~/VimSetup/init.vim init.vim && cd ~/.local/share/ && mkdir nvim && cd nvim && mkdir site && cd site && mkdir autoload && curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && cd ~/.config/fish && rm config.fish && ln -s ~/VimSetup/config.fish && cd ~/ && ln -s ~/VimSetup/init.vim .vimrc && ln -s ~/.local/share/nvim .vim && vi ~/.vimrc
+if ["$(uname)" == "Darwin"]; then
+	rvm install ruby
+else
+	rvm install ruby && sudo apt-add-repository ppa:fish-shell/release-2 && sudo apt-add-repository -y ppa:rael-gc/rvm && sudo apt-add-repository ppa:neovim-ppa/stable && sudo apt-get update
+fi	

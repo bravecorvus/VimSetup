@@ -1,6 +1,0 @@
-#!/bin/bash
-if ["$(uname)" == "Darwin"]; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" && brew install fish python python3 neofetch curl git rvm
-else
-	sudo apt-get install software-properties-common && sudo apt-add-repository ppa:fish-shell/release-2 && sudo apt-add-repository -y ppa:rael-gc/rvm && sudo apt-add-repository ppa:neovim-ppa/stable && sudo apt-get update
-fi	
