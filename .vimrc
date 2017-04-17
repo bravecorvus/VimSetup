@@ -1,0 +1,1 @@
+/Users/andrewlee/.config/nvim/init.vim
