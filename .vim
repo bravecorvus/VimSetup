@@ -1,1 +1,0 @@
-/Users/andrewlee/.local/share/nvim/
