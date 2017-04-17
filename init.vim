@@ -76,8 +76,15 @@ syntax on
 set number
 set encoding=utf-8
 
-let g:python_host_prog='/usr/local/bin/python2.7'
-let g:python3_host_prog='/usr/local/bin/python3'
+if has("unix")
+	let s:uname = system("uname")
+	let g:python_host_prog='usr/bin/python'
+	let g:python3_host_prog='usr/bin/python3'
+	if s:uname == "Darwin\n"
+		let g:python_host_prog='/usr/local/bin/python'
+		let g:python3_host_prog='/usr/local/bin/python3'
+	endif
+endif
 "golang vim-go"
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
