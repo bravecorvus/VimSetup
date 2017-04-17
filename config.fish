@@ -27,7 +27,7 @@ if status --is-interactive
 end
 alias vi=/usr/local/bin/nvim
 neofetch --config none
-eval $HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh
+eval $HOME/neovim/nvim/plugged/gruvbox/gruvbox_256palette.sh
 #bass source ~/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
