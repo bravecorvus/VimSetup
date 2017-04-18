@@ -38,7 +38,7 @@ alias vi=nvim
 #rvm default
 # Base16 Shell
 neofetch --config none
-eval $HOME/neovim/nvim/plugged/gruvbox/gruvbox_256palette.sh
+eval $HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh
 #bass source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
 #rvm default
