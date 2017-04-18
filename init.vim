@@ -1,7 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Rip-Rip/clang_complete'
 Plug 'tpope/vim-surround'
-"Plug 'neomake/neomake', {'for': 'cpp,c'}
+Plug 'neomake/neomake', {'for': 'cpp,c'}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'fatih/vim-go'
 Plug 'ervandew/supertab'
@@ -20,13 +20,18 @@ call plug#end()
 
 "Path/Environment Stuff
 let $PATH .= ':/usr/local/bin'
-
+"set runtimepath+=~/.local/share/nvim/
+if s:uname == "Darwin\n"
+	set runtimepath+=~/usr/local/opt/neovim/share/nvim/runtime
+elseif s:uname == "Linux\n"
+	set runtimepath+=~/usr/share/nvim/runtime
+endif
 "General 
 "set smarttab
 
 "Theming
 "primary
-set termguicolors
+"set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 let g:gruvbox_contrast_dark="soft"
@@ -107,7 +112,7 @@ set completeopt-=preview
 "Try clangcomplete + neomake
 "let g:clang_library_path='/lib/libclang.so'
 if s:uname == "Darwin\n"
-	let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib'
+	let s:clang_library_path='/Library/Developer/CommandLineTools/usr/libclan.dylib'
 elseif s:uname == "Linux\n"
 	let s:clang_library_path='/usr/lib/llvm-4.0/lib/libclang.so'
 endif
