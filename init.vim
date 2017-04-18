@@ -1,9 +1,10 @@
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'zchee/deoplete-jedi'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Rip-Rip/clang_complete'
 Plug 'tpope/vim-surround'
-Plug 'neomake/neomake', {'for': 'cpp,c,python'}
+Plug 'neomake/neomake'", {'for': 'cpp,c,python,go'}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'fatih/vim-go'
 Plug 'ervandew/supertab'
@@ -71,7 +72,7 @@ map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <silent> [<space>  :<c-u>put!=repeat([''],v:count)<bar>']+1<cr>
 nnoremap <silent> ]<space>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 
@@ -106,6 +107,7 @@ let g:deoplete#auto_completion_start_length=1
 set completeopt-=preview
 
 "clangcomplete
+let s:uname = system("uname")
 if s:uname == "Darwin\n"
 	let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/'
 else
@@ -131,9 +133,7 @@ let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501'], }
 augroup vimrc_neomake
     au!
-    autocmd BufWritePost *.cpp Neomake
-    au!
-    autocmd BufWritePost *.py Neomake
+    autocmd BufWritePost * Neomake
 augroup END
 
 nmap <Leader><Space>o :lopen<CR>      " open location window
