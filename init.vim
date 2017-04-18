@@ -1,7 +1,9 @@
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'zchee/deoplete-jedi'
+Plug 'scrooloose/nerdcommenter'
 Plug 'Rip-Rip/clang_complete'
 Plug 'tpope/vim-surround'
-Plug 'neomake/neomake', {'for': 'cpp,c'}
+Plug 'neomake/neomake', {'for': 'cpp,c,python'}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'fatih/vim-go'
 Plug 'ervandew/supertab'
@@ -27,9 +29,14 @@ if s:uname == "Darwin\n"
 elseif s:uname == "Linux\n"
 	set runtimepath+=~/usr/share/nvim/runtime
 endif
+
 "General 
 "set smarttab
-
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "Theming
 "primary
 "set termguicolors
@@ -66,7 +73,8 @@ nmap <leader>T :enew<cr>
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <silent> [<space>  :<c-u>put!=repeat([''],v:count)<bar>']+1<cr>
 nnoremap <silent> ]<space>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 
@@ -84,6 +92,7 @@ syntax on
 set number
 set encoding=utf-8
 
+let s:uname = system("uname")
 if s:uname == "Linux\n"
 	let g:python_host_prog='/usr/bin/python'
 	let g:python3_host_prog='/usr/bin/python3'
@@ -111,6 +120,7 @@ set completeopt-=preview
 
 "Try clangcomplete + neomake
 "let g:clang_library_path='/lib/libclang.so'
+let s:uname = system("uname")
 if s:uname == "Darwin\n"
 	let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/'
 else
@@ -118,13 +128,33 @@ else
 endif
 let g:clang_library_path=s:clang_library_path
 
-let g:neomake_cpp_enabled_makers=['gcc']
-let g:neomake_c_enabled_makers=['gcc']
+let g:neomake_open_list=2
+let g:neomake_cpp_enabled_makers=['clang']
+let g:neomake_cpp_enabled_maker={'exe': 'clang'}
 let g:neomake_cpp_clang_args=["-std=c++14", "-stdlib=libc++", "-Wextra", "-Wall", "-fsyntax-only"]
-let g:neomake_cpp_gcc_args=["-std=c++14", "-stdlib=libc++", "-Wextra", "-Wall", "-fsyntax-only"]
-let g:neomake_c_clang_args=["-Wextra", "-Wall", "-fsyntax-only"]
-let g:neomake_c_gcc_args=["-Wextra", "-Wall", "-fsyntax-only"]
-"let g:neomake_python_enabled_makers=['flake8']
+"let g:neomake_cpp_gcc_args=["-std=c++14", "-stdlib=libc++", "-Wextra", "-Wall", "-fsyntax-only"]
+"let g:neomake_c_clang_args=["-Wextra", "-Wall", "-fsyntax-only"]
+"let g:neomake_c_gcc_args=["-Wextra", "-Wall", "-fsyntax-only"]
+let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501'], }
+"augroup vimrc_neomake
+	"au!
+	"autocmd BufWritePost * Neomake
+"augroup END
+augroup vimrc_neomake
+    au!
+    autocmd BufWritePost *.cpp Neomake
+    au!
+    autocmd BufWritePost *.py Neomake
+augroup END
+
+nmap <Leader><Space>o :lopen<CR>      " open location window
+nmap <Leader><Space>c :lclose<CR>     " close location window
+nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+nmap <Leader><Space>n :lnext<CR>      " next error/warning
+nmap <Leader><Space>p :lprev<CR>      " previous error/warning
+let g:airline#extensions#neomake#enabled = 1
+
 noremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 noremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 let g:clang_complete_auto=0
