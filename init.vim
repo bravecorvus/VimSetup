@@ -112,13 +112,11 @@ set completeopt-=preview
 "Try clangcomplete + neomake
 "let g:clang_library_path='/lib/libclang.so'
 if s:uname == "Darwin\n"
-	let s:clang_library_path='/Library/Developer/CommandLineTools/usr/libclan.dylib'
-elseif s:uname == "Linux\n"
+	let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/'
+else
 	let s:clang_library_path='/usr/lib/llvm-4.0/lib/libclang.so'
 endif
-if isdirectory(s:clang_library_path)
-	let g:clang_library_path=s:clang_library_path
-endif
+let g:clang_library_path=s:clang_library_path
 
 let g:neomake_cpp_enabled_makers=['gcc']
 let g:neomake_c_enabled_makers=['gcc']
