@@ -17,7 +17,7 @@ set default_path /usr/local/bin /usr/bin /usr/sbin /bin /sbin
 ### FOR GO LANGUAGE ###
 #set -x GOPATH $HOME/go
 #set PATH $PATH $GOPATH/bin
-#set -x VIMRUNTIME /usr/local/opt/neovim/share/nvim/runtime
+set -x VIMRUNTIME /usr/share/nvim/runtime
 #set -x GOROOT /usr/local/opt/go/libexec
 #RVM
 #export rvmsudo_secure_path=0
@@ -27,10 +27,10 @@ set default_path /usr/local/bin /usr/bin /usr/sbin /bin /sbin
 #if status --is-interactive
 #    bash $HOME/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
 #end
-#alias vi=/usr/local/bin/nvim
-set -x GOPATH $HOME/go
-set PATH $PATH $GOPATH/bin
-set -x VIMRUNTIME /usr/local/opt/neovim/share/nvim/runtime
+alias vi=nvim
+#set -x GOPATH $HOME/go
+#set PATH $PATH $GOPATH/bin
+#set -x VIMRUNTIME /usr/local/opt/neovim/share/nvim/runtime
 #set -x GOROOT /usr/local/opt/go/libexec
 #RVM
 #export rvmsudo_secure_path=0
@@ -41,3 +41,4 @@ neofetch --config none
 eval $HOME/neovim/nvim/plugged/gruvbox/gruvbox_256palette.sh
 #bass source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
+#rvm default
