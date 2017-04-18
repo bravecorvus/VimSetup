@@ -79,9 +79,10 @@ set encoding=utf-8
 
 if has("unix")
 	let s:uname = system("uname")
-	let g:python_host_prog='usr/bin/python'
-	let g:python3_host_prog='usr/bin/python3'
-	if s:uname == "Darwin\n"
+	if s:uname == "Linux\n"
+		let g:python_host_prog='usr/bin/python'
+		let g:python3_host_prog='usr/bin/python3'
+	elseif s:uname == "Darwin\n"
 		let g:python_host_prog='/usr/local/bin/python'
 		let g:python3_host_prog='/usr/local/bin/python3'
 	endif
