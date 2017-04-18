@@ -1,6 +1,6 @@
 #!/bin/bash
-#if ["$(uname)" == "Darwin"]; then
-#	rvm install ruby
-#else
+if [[ "$(uname)" == "Darwin" ]]; then
+	rvm install ruby
+else
 	bash --login && source ~/.rvm/scripts/rvm && rvm --default use 2.4.0  && sudo apt-add-repository ppa:fish-shell/release-2 && sudo apt-add-repository -y ppa:rael-gc/rvm && sudo apt-add-repository ppa:neovim-ppa/stable && sudo apt-get update
-#fi	
+fi	

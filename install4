@@ -1,5 +1,5 @@
 #!/bin/bash
-if ["$(uname)" == "Darwin"]; then
+if [[ "$(uname)" == "Darwin" ]]; then
 	sudo -H pip3 install neovim && brew isntall neovim && sudo chsh -s /usr/local/bin/fish && cd ~/.config/nvim && rm init.vim ln -s ~/VimSetup/init.vim init.vim && cd ~/.local/share/nvim/ && curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && cd ~/.config/fish && rm config.fish && ln -s ~/VimSetup/macconfig.fish config.fish && cd ~/ && ln -s ~/VimSetup/init.vim .vimrc && cd ~/VimSetup/ && vi init.vim 
 else
