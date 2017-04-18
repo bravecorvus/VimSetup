@@ -26,5 +26,4 @@ if status --is-interactive
     bash $HOME/.vim/plugged/gruvbox/gruvbox_256palette_osx.sh
 end
 neofetch --config none
-
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
