@@ -22,24 +22,26 @@ call plug#end()
 
 "Path/Environment Stuff
 let $PATH .= ':/usr/local/bin'
-"set runtimepath+=~/.local/share/nvim/
 let s:uname = system("uname")
 if s:uname == "Darwin\n"
 	set runtimepath+=~/usr/local/opt/neovim/share/nvim/runtime
+	let g:python_host_prog='/usr/local/bin/python'
+	let g:python3_host_prog='/usr/local/bin/python3'
 elseif s:uname == "Linux\n"
 	set runtimepath+=~/usr/share/nvim/runtime
+	let g:python_host_prog='/usr/bin/python'
+	let g:python3_host_prog='/usr/bin/python3'
 endif
 
 "General 
-"set smarttab
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 "Theming
-"primary
-"set termguicolors
+set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 let g:gruvbox_contrast_dark="soft"
@@ -56,20 +58,15 @@ let g:airline_powerline_fonts = 1 "get powerline fonts
 let g:airline#extensions#tabline#enabled = 1 "turn on the top of airline
 let g:airline#extensions#tabline#fnamemod = '#t' "set the top tabline to show you buffer (tab) name
 
-"Set default shell to Bash: Necessary to use vimtex
+"Key remappings
 set shell=/bin/sh
-"Key Remapping
 inoremap jk <ESC>
 inoremap kj <ESC>
 map <C-J> :bprev<CR>
 map <C-K> :bnext<CR>
 nnoremap qq :w\|bd<cr>
-"map <C-L>
-"map <D-w> qq :w\|bd<cr>
 let mapleader = "\<Space>"
 nmap <leader>T :enew<cr>
-"nmap <leader>l :bnext<CR>
-"nmap <leader>h :bprevious<CR>
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -85,21 +82,12 @@ let &rtp .= ',~/.local/share/nvim/plugged/vimtex,'
 let g:vimtex_view_method = 'skim'
 "Vim Formatting
 set hidden
-"filetype plugin indent on
 set clipboard+=unnamedplus
 set nocompatible
 syntax on
 set number
 set encoding=utf-8
 
-let s:uname = system("uname")
-if s:uname == "Linux\n"
-	let g:python_host_prog='/usr/bin/python'
-	let g:python3_host_prog='/usr/bin/python3'
-elseif s:uname == "Darwin\n"
-	let g:python_host_prog='/usr/local/bin/python'
-	let g:python3_host_prog='/usr/local/bin/python3'
-endif
 "golang vim-go"
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
@@ -108,26 +96,30 @@ autocmd FileType go nmap <leader>r  <Plug>(go-run)
 let g:UltiSnipsExpandTrigger="<cr>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-"let g:UltiSnipsUsePythonVersion=2
+let g:UltiSnipsUsePythonVersion=3
 let g:UltiSnipsSnippetsDir='~/UltiSnipsSnippetsDir'
-"call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
 
-"Trying out Deoplete
+"Deoplete Settings
 let g:deoplete#enable_at_startup = 1
 "let g:deoplete#enable_refresh_always = 1
 let g:deoplete#auto_completion_start_length=1
 set completeopt-=preview
 
-"Try clangcomplete + neomake
-"let g:clang_library_path='/lib/libclang.so'
-let s:uname = system("uname")
+"clangcomplete
 if s:uname == "Darwin\n"
 	let s:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/'
 else
 	let s:clang_library_path='/usr/lib/llvm-4.0/lib/libclang.so'
 endif
 let g:clang_library_path=s:clang_library_path
+noremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+noremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+let g:clang_complete_auto=0
+let g:clang_complete_select=0
+let g:clang_omnicppcomplete_compliance=0
+let g:clang_make_default_keymappings=0
 
+"neomake
 let g:neomake_open_list=2
 let g:neomake_cpp_enabled_makers=['clang']
 let g:neomake_cpp_enabled_maker={'exe': 'clang'}
@@ -137,10 +129,6 @@ let g:neomake_cpp_clang_args=["-std=c++14", "-stdlib=libc++", "-Wextra", "-Wall"
 "let g:neomake_c_gcc_args=["-Wextra", "-Wall", "-fsyntax-only"]
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501'], }
-"augroup vimrc_neomake
-	"au!
-	"autocmd BufWritePost * Neomake
-"augroup END
 augroup vimrc_neomake
     au!
     autocmd BufWritePost *.cpp Neomake
@@ -155,12 +143,6 @@ nmap <Leader><Space>n :lnext<CR>      " next error/warning
 nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 let g:airline#extensions#neomake#enabled = 1
 
-noremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-noremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-let g:clang_complete_auto=0
-let g:clang_complete_select=0
-let g:clang_omnicppcomplete_compliance=0
-let g:clang_make_default_keymappings=0
 
 "Vim start behavior
 let g:startify_bookmarks = ["~/.config/nvim/init.vim"]
