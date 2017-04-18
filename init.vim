@@ -21,6 +21,7 @@ call plug#end()
 "Path/Environment Stuff
 let $PATH .= ':/usr/local/bin'
 "set runtimepath+=~/.local/share/nvim/
+let s:uname = system("uname")
 if s:uname == "Darwin\n"
 	set runtimepath+=~/usr/local/opt/neovim/share/nvim/runtime
 elseif s:uname == "Linux\n"
@@ -83,7 +84,6 @@ syntax on
 set number
 set encoding=utf-8
 
-let s:uname = system("uname")
 if s:uname == "Linux\n"
 	let g:python_host_prog='/usr/bin/python'
 	let g:python3_host_prog='/usr/bin/python3'
