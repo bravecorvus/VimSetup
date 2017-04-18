@@ -72,6 +72,7 @@ let g:vimtex_view_method = 'skim'
 "Vim Formatting
 set hidden
 "filetype plugin indent on
+set clipboard+=unnamedplus
 set nocompatible
 syntax on
 set number
