@@ -18,3 +18,5 @@ eval $HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette.sh
 #bass source ~/.vim/plugged/gruvbox/gruvbox_256palette.sh
 
 #rvm default
+rvm default
+rvm default
