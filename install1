@@ -2,6 +2,6 @@
 if ["$(uname)" == "Darwin"]; then
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" && brew install fish python python3 neofetch curl git rvm
 else
-	sudo apt-get install software-properties-common curl && curl -sSL https://get.rvm.io -o rvm.sh && sudo chmod 777 rvm.sh && ./rvm.sh && source ~/.rvm/scripts/rvm && sudo groupadd rvm && sudo useradd -G rvm "$(whoami)" && source /etc/profile.d/rvm.sh
+	sudo apt-get install software-properties-common curl && curl -sSL https://get.rvm.io -o rvm.sh && bash rvm.sh && source ~/.rvm/scripts/rvm && sudo groupadd rvm && sudo useradd -G rvm "$(whoami)" && source /etc/profile.d/rvm.sh
 fi	
 echo "Logout and Login for group changes to update"

@@ -2,5 +2,5 @@
 if ["$(uname)" == "Darwin"]; then
 	rvm install ruby
 else
-	rvm install ruby && sudo apt-add-repository ppa:fish-shell/release-2 && sudo apt-add-repository -y ppa:rael-gc/rvm && sudo apt-add-repository ppa:neovim-ppa/stable && sudo apt-get update
+	rvm install ruby-stable && sudo apt-add-repository ppa:fish-shell/release-2 && sudo apt-add-repository -y ppa:rael-gc/rvm && sudo apt-add-repository ppa:neovim-ppa/stable && sudo apt-get update
 fi	
