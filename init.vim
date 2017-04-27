@@ -15,7 +15,7 @@ Plug 'https://github.com/vim-airline/vim-airline'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'benmills/vimux'
 Plug 'rizzatti/dash.vim'
-Plug 'https://github.com/morhetz/gruvbox' 
+Plug 'morhetz/gruvbox' 
 Plug 'scrooloose/nerdtree'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -35,6 +35,10 @@ elseif s:uname == "Linux\n"
 endif
 
 "General 
+nmap <Leader><Space>h :NoMatchParen<CR>
+nmap <Leader><Space>H :DoMatchParen<CR>
+"let noshowmatch=1 
+let g:loaded_matchparen=1
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -68,6 +72,7 @@ map <C-K> :bnext<CR>
 nnoremap qq :w\|bd<cr>
 let mapleader = "\<Space>"
 nmap <leader>T :enew<cr>
+
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -80,8 +85,27 @@ nnoremap <silent> ]<space>  :<c-u>put =repeat([''],v:count)<bar>'[-1<cr>
 "let g:vimtex_latexmk_options = '-pdf -pdflatex="pdflatex --shell-escape %O %S" -verbose -file-line-error -synctex=1 -interaction=nonstopmode'
 let &rtp = '~/.local/share/nvim/plugged/vimtex,' .&rtp 
 let &rtp .= ',~/.local/share/nvim/plugged/vimtex,'
-let g:vimtex_view_method = 'skim'
-"Vim Formatting
+let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+let g:vimtex_view_general_options = '-r @line @pdf'
+let g:vimtex_latexmk_callback_hook = 'UpdateSkim'
+function! UpdateSkim(status)
+  if !a:status
+    return
+  endif
+  let cmd = [g:vimtex_view_general_viewer, "-r"]
+  if !empty(system("pgrep Skim"))
+    call extend(cmd, ["-g"])
+  endif
+  let out = b:vimtex.out()
+  if has('nvim')
+    call jobstart(cmd + [line('.'), out])
+  elseif has('job')
+    call job_start(cmd + [line('.'), out])
+  else
+    call system(join(cmd + [line('.'), shellescape(out)], ' '))
+  endif
+endfunction
+
 set hidden
 set clipboard+=unnamedplus
 set nocompatible
@@ -143,6 +167,12 @@ nmap <Leader><Space>n :lnext<CR>      " next error/warning
 nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 let g:airline#extensions#neomake#enabled = 1
 
+"Build Settings
+"nmap <Leader><Space>b :make<CR>
+nmap <Leader><Space>b :make<CR>
+"autocmd filetype cpp setlocal makeprg=g++\ -o\ %:p:r\ %:p\ -std=c++14\ -W\ -Wall\ -lm
+"set makeprg=make\ %<
+au FileType cpp setl mp=g++-6\ -o\ %:p:r\ %:p\ -std=c++14
 
 "Vim start behavior
 let g:startify_bookmarks = ["~/.config/nvim/init.vim"]
