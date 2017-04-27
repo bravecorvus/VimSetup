@@ -32,3 +32,5 @@ set fish_color_operator d3869b
 set fish_color_escape fb4934
 set fish_color_cwd a89984
 
+rvm default
+rvm default
